@@ -1,0 +1,457 @@
+/* Steven Paul Jones II*/
+main {
+    height: 100vh;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 0.7fr 1.7fr 0.6fr;
+    grid-template-rows: 0.4fr 2.3fr 0.3fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    color: White;
+    transition: background-color 0.5s ease;
+    height: 100vh;
+}
+
+.signUp, .pause, .WelcomeText {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+.header {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 0.7fr 0.8fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "themeButton title userSignIn userSignIn"
+        "themeButton title userSignIn userSignIn"
+        "themeButton title userSignIn userSignIn";
+    grid-area: 1 / 1 / 2 / 4;
+    height: 120px;
+}
+
+.body {
+    display: grid;
+    grid-template-columns: 0.3fr 1fr 2.4fr 1fr 0.3fr;
+    grid-template-rows: 0.3fr 1.2fr 1.8fr 0.7fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        ". . . . ."
+        ". WelcomeText WelcomeText . ."
+        ". aboutText aboutText aboutText ."
+        ". . . toFoodRepo ."
+        ". . . . .";
+    grid-area: 2 / 2 / 3 / 3;
+    border-radius: 50px;
+    margin-top: 3%;
+    height: 85%;
+}
+
+.WelcomeText {
+    grid-area: WelcomeText;
+    color: white;
+}
+
+.aboutText {
+    grid-area: aboutText;
+}
+
+p {
+    text-indent: 15%;
+    margin-right: 2%;
+    font-size: 18px;
+}
+
+.toFoodRepo {
+    grid-area: toFoodRepo;
+}
+
+
+.title, .WelcomeText {
+    font-size: 27px;
+    font-weight: bold;
+    border-radius: 50px;
+    background: linear-gradient(145deg, #004f99, #0c7b97, #0c9787);
+    text-shadow: 0 0 2px #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1%;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.signUp, .pause, .WelcomeText {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.title, .WelcomeText, .aboutText, .logIn, .passwordRecovery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title, .WelcomeText, .aboutText, .logIn, .passwordRecovery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toFoodRepo, .github, .pause, .signUp, .logIn, .passwordRecovery {
+    border-radius: 25px;
+    background: linear-gradient(145deg, #00ae55, #009347);
+    text-shadow: 0 0 2px #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2%;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.title, .WelcomeText {
+    font-size: 27px;
+    font-weight: bold;
+    border-radius: 50px;
+    background: linear-gradient(145deg, #004f99, #0c7b97, #0c9787);
+    color: white;
+    text-shadow: 0 0 2px #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1%;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+
+.userSignIn {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "logIn signUp"
+        "passwordRecovery signUp";
+    grid-area: userSignIn;
+}
+
+.signUp {
+    grid-area: signUp;
+}
+
+.passwordRecovery {
+    grid-area: passwordRecovery;
+}
+
+.themeButton {
+    grid-area: themeButton;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    margin: 1%;
+}
+
+.title {
+    grid-area: title;
+}
+
+.logIn {
+    grid-area: logIn;
+}
+
+button {
+    border: none;
+    color: white;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    width: 90%;
+    margin-top: 10px;
+    height: 70%;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #00ae55, #009347);
+}
+
+    button:hover {
+        transform: scale(1.04);
+        border: none;
+    }
+
+    button:active {
+        transform: scale(1.0);
+    }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+    .dropdown-content input {
+        margin-bottom: 8px;
+        width: 100%;
+    }
+
+    .dropdown-content button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+.dark-mode {
+    background-color: #000d1f; /* Dark mode background color */
+    color: #FFF; /* Text color */
+}
+
+.signUp {
+    grid-area: signUp;
+    cursor: pointer;
+    color: white;
+}
+
+.signUpDropdown {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    width: 20%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+    .signUpDropdown input,
+    .signUpDropdown button {
+        margin-bottom: 8px;
+        width: 100%;
+    }
+
+
+    .signUpDropdown button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        text-align: center;
+        justify-content: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+        .signUpDropdown button:hover {
+            background-color: #45a049;
+        }
+
+.background {
+    grid-area: 2 / 1 / 3 / 4;
+    z-index: -1;
+}
+
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.video-wrapper {
+    display: flex;
+    transition: opacity 1.5s ease-in-out;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.footer {
+    grid-area: 3 / 1 / 4 / 4;
+    height: 100px;
+}
+
+.github {
+    display: grid;
+    grid-template-columns: 0.6fr 1.4fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "githubIcon myGithub"
+        "githubIcon myGithub";
+    grid-area: 3 / 1 / 4 / 2;
+    width: 35%;
+    transition: background-color 0.5s ease;
+}
+
+.githubIcon {
+    grid-area: githubIcon;
+}
+
+.myGithub {
+    grid-area: myGithub;
+}
+
+.pause {
+    grid-area: 3 / 3 / 4 / 4;
+}
+
+html, body, .container {
+    height: 100%;
+    margin: 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    border: none;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        border: none;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: Khaki;
+    transition: .4s;
+    border-radius: 34px;
+    border: none;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+        border: none;
+    }
+
+input:checked + .slider {
+    background-color: rgb(0, 72, 139);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+:root {
+    --background-color: #1b2027;
+    --text-color: white;
+    --body-background-dark: #1b2027c3;
+    --body-background-light: #d8e6f1f3;
+    transition: background-color 0.5s ease;
+}
+
+.light-mode {
+    --background-color: white;
+    --text-color: black;
+    transition: background-color 0.5s ease;
+}
+
+.header, .footer {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease;
+}
+
+.body {
+    background-color: var(--body-background-dark); /* Dark mode background color */
+    color: var(--text-color);
+    transition: background-color 0.5s ease;
+}
+
+.light-mode .body {
+    background-color: var(--body-background-light); /* Light mode background color */
+    transition: background-color 0.5s ease;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
