@@ -1,0 +1,172 @@
+﻿@page "/"
+
+
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop 
+@using System.Timers
+@inject IJSRuntime JSRuntime
+
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <!-- Sign In -->
+        <div class="userSignIn">
+            <!-- Dropdown -->
+            <div class="dropdown">
+                <button @onclick="ToggleDropdown">Sign In</button>
+                <div class="dropdown-content">
+                    <input @bind="@Username" placeholder="Username" />
+                    <input @bind="@Password" type="password" placeholder="Password" />
+                    <button @onclick="Login">Log In</button>
+                </div>
+            </div>
+            <!-- Sign Up -->
+            <div class="signUp" id="signUpBtn">Sign Up</div>
+            <!-- SignUp Dropdown -->
+            <div class="signUpDropdown" id="signUpDropdown">
+                <input type="text" placeholder="Username">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <button>Sign Up</button>
+            </div>
+            <!-- Forgot Password Dropdown -->
+            <div class="dropdown">
+                <button @onclick="TogglePasswordRecovery">Forgot Password</button>
+                <div class="dropdown-content">
+                    <input placeholder="Email" />
+                    <button>Recover Password</button>
+                </div>
+            </div>
+        </div>
+        <!-- Theme Toggle Button -->
+        <div class="themeButton">
+            <label class="switch">
+                <input type="checkbox" id="mode-toggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <!-- Title -->
+        <div class="title">Food Repository</div>
+    </div>
+
+    <!-- Body -->
+    <div class="body" id="bodyElement">
+        <!-- Welcome Text -->
+        <div class="WelcomeText">🍴 Welcome to The Food Repository! 🍴</div>
+        <!-- About Text -->
+        <div class="aboutText">
+            <p>
+                Indulge your passion for food and join our vibrant community of culinary connoisseurs! Whether you're a seasoned chef, a home cook, or simply someone who loves to explore new flavors, you've come to the right place.
+            </p>
+            <p>
+                At The Food Repository, we celebrate the art of cooking, the joy of sharing meals, and the endless possibilities of gastronomic adventures. Connect with fellow foodies, share your favorite recipes, discover mouthwatering dishes from around the world, and embark on a delicious journey that will tantalize your taste buds.
+            </p>
+        </div>
+        <!-- Browse Button -->
+        <button @onclick="BrowseFoodRepository" class="toFoodRepo">
+            Browse Food Repository!
+        </button>
+    </div>
+
+    <!-- Background -->
+    <div class="background" id="card2">
+        <div class="video-container">
+            <video id="video" autoplay muted loop>
+                <source src="@currentVideo" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer"></div>
+
+    <!-- GitHub Button -->
+    <button class="github" onclick="redirectToWebsite('https://github.com/SPJII')">
+        <div class="githubIcon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEtUlEQVR4nO2ZbYhUVRjHJys3zV3d7EsghZoVJWnmrqalBGK2mWiaVlKbJBoYYUi4ZhaspeKui5lWC0YQ9CHqg+wHId8ylPWtdM3VjFQC/RT5tkKm5vzkcf9TZ2funZ259wxtNH+4zL3nufd5Oed5O2cSiSKKKKKI/z2APkAlMA14Wdc0jfXp0hMEPAw0AK1AknAY7RBQDwxLdAUANwBTgH2OkgeBNcAc4AlgpC67nwt8KENSxu4BJv2bRtwDbJMyvwO1wIA8vr8bWAqcFo/NNlZYrTOVmAlcAP6UAb1i8CoF3gcuAW3ADL/ahgteLLc4Agz2yPdB4Kh41/jiGybsbbnBt0BZAfj3Ar6RjJpCupPN1hagRGN9gfuAnjFd636gt55vUewlvbuZAvuC3KlUYyXAYc3eFRk4wfnmLuBxTcBM3d/p0KcCO4Gr4tFsWVC0MrnZeWCgzxS7TYH9d0wonaayzQbgDz2ba/ycpY4ckWui4P4a2KHnSof/ECWATb4MsTphWJo2Xq3xxxw3+0wusRd4x1wDGKPrOeBd4AetwgfO6k4Ur8lpMpZpfKIPQ/apTnRIscCLriHO+O058OzwDvBUiCGlqjO7fbQdhtoA2qOizYolpJ3XAvF6IID2nmgPxRHQIFfJqNiWqeQi6yML+IfXBiWTbgG0QdKhLo4A64kOhtAma6bmRxaQOetPhtBbw/TItRW3mViTJXaOATdGEtCRVw/gN8t4IfS10iX/IgyM0CzNCaD1E60hou5B8j5Viu8eQHtV8iqiMLaCZRgfQBsr2isxdE/naenacEcAbYJoz0RhbLs6wyOFzFgOzzrxzNhBAqNEq45jyE+q1N+rjbAq3CLaco+GNAF/KfZ26/eAWpWjcQxJuZa1IjdZz6O4GQ88qz7oF6N5MKKvWpxW8R6n/f0AyU61Q1OiMDdGhl/VcnwFrLNVABbq3rDIgyGfKyvVAm8BK4CP1IftlQ6G4XHS7ych9G7Adr3zRqpzzVNGiVIrYXIMQGPk9CsGP1qMpI3da3nfMXaXFGlWkeyeA1/roWY5XfKXwM1Z3rf3WiIZIQarNBOD9GwnI6iRm+7Maq1aDMM5YCuwWtvi14DXgSVyl2an5T8JvJBtNWmfOMPKOIYMc5moflzUWNLNIkC5lPpCxoTBDF6v1euRgw71+m5oZEPEaI/a+Ov5HXjeUcrS5Wxn61uq4nVe38xVBhonI09os1SZo+xyrX5zLCPEbJKUrnN2jJbfL2urGoSLQcqqk7XV2p5H922oim2IGG5WH3T9iFOBapgPvKTTw0aly84y0Mpc9hdAhVZvoxcjnFPBNhXAMgX4fudUpVGXpWPDiBzibl6Wd3oDx7V6/b0ZIuYzpPh32lSVqyieIhM9O2nZDatD6LeqDTJZU70a4QipkRJ2qlIeQLdVIQc+hsaA8ducVX3Tp+5hxiS1qRrqyxCLGdqzWrLgRqS5WZsyV71zrJO3IYq5Bh3ynSuYO2VRxrrhTVLqjPYTTXkY0qRvzup5o/fAzgfA09o/uPhYxbAKGK2rSltWo7nY5a1O+IB8vE7/WHX211uL6smQRFcG7X5foc1ZtS67H16IvyOKKKKIIhL/OVwDNuqPu7vBAaIAAAAASUVORK5CYII="></div>
+        <div class="myGithub"> SPJII</div>
+    </button>
+
+    <!-- Pause Button -->
+    <button class="pause" @onclick="ToggleVideo">@pauseButtonText</button>
+</div>
+
+<script>
+    document.getElementById('mode-toggle').addEventListener('change', function () {
+        document.body.classList.toggle('light-mode');
+    });
+
+    startTimer(); // Start the timer immediately when the page loads
+    playVideo(); // Play the video immediately when the page loads
+</script>
+
+@code {
+    private string modeClass = "";
+
+    private async Task ToggleMode()
+    {
+        if (modeClass == "")
+        {
+            modeClass = "light-mode";
+        }
+        else
+        {
+            modeClass = "";
+        }
+
+        await JSRuntime.InvokeVoidAsync("applyMode", modeClass);
+    }
+
+
+    private string Username { get; set; }
+    private string Password { get; set; }
+
+    private void ToggleDropdown() { }
+    private void ToggleSignUp() { }
+    private void TogglePasswordRecovery() { }
+
+    private string[] videos = { "video1.mp4", "video2.mp4", "video3.mp4", "video4.mp4" };
+    private int currentVideoIndex = 0;
+    private string currentVideo = "video1.mp4"; // Set the initial video
+    private bool isPlaying = true;
+    private string pauseButtonText = "Pause";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("startTimer");
+            await JSRuntime.InvokeVoidAsync("playVideo");
+        }
+    }
+
+    private void ToggleVideo()
+    {
+        if (isPlaying)
+        {
+            JSRuntime.InvokeVoidAsync("pauseVideo");
+            pauseButtonText = "Play";
+        }
+        else
+        {
+            JSRuntime.InvokeVoidAsync("playVideo");
+            pauseButtonText = "Pause";
+        }
+        isPlaying = !isPlaying;
+    }
+
+    private void Login()
+    {
+        // Your login logic here
+
+    }
+
+    private void BrowseFoodRepository()
+    {
+        // Navigation logic
+    }
+
+
+}
