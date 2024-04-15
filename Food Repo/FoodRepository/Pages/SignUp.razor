@@ -1,0 +1,77 @@
+﻿@page "/signup"
+@using DataAccess.Data
+@using DataAccess.Models
+@using System.Net.Http.Json
+@inject NavigationManager NavigationManager
+
+@inject IUserData UserData
+@implements IDisposable
+
+<h3>Sign Up</h3>
+
+<div>
+    <label>Username:</label>
+    <input type="text" @bind="newUser.Username" />
+</div>
+<div>
+    <label>First Name:</label>
+    <input type="text" @bind="newUser.First_name" />
+</div>
+<div>
+    <label>Last Name:</label>
+    <input type="text" @bind="newUser.Last_name" />
+</div>
+<div>
+    <label>Email:</label>
+    <input type="email" @bind="newUser.Email" />
+</div>
+<div>
+    <label>Password:</label>
+    <input type="password" @bind="newUser.Password" />
+</div>
+<div>
+    <label>Confirm Password:</label>
+    <input type="password" @bind="confirmPassword" />
+</div>
+
+<button @onclick="SignUpUser">Sign Up</button>
+
+@if (errorMessage != null)
+{
+    <p style="color: red;">@errorMessage</p>
+}
+
+@code {
+    private UserModel newUser = new UserModel();
+    private string confirmPassword;
+    private string errorMessage;
+
+    private async Task SignUpUser()
+    {
+        if (newUser.Password != confirmPassword)
+        {
+            errorMessage = "Passwords do not match.";
+            return;
+        }
+
+        try
+        {
+            await UserData.InsertUser(newUser);
+            newUser = new UserModel(); // Clear the form after successful signup
+            confirmPassword = string.Empty;
+            errorMessage = null;
+
+            // Redirect to the sign-in page upon successful sign-up
+            NavigationManager.NavigateTo("/signin");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Clean up resources if needed
+    }
+}
